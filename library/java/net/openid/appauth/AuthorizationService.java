@@ -551,13 +551,13 @@ public class AuthorizationService {
             CustomTabsIntent customTabsIntent) {
         checkNotDisposed();
 
-        if (mBrowser == null) {
+        if (mBrowser == null && customTabsIntent == null) {
             throw new ActivityNotFoundException();
         }
 
         Uri requestUri = request.toUri();
         Intent intent;
-        if (mBrowser.useCustomTab) {
+        if (mBrowser.useCustomTab || customTabsIntent != null) {
             intent = customTabsIntent.intent;
         } else {
             intent = new Intent(Intent.ACTION_VIEW);
